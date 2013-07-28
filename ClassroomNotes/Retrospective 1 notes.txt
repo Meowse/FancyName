@@ -1,0 +1,4 @@
+Please put more code on the screen
+Need clarity of events vs. delegates
+Basic process is working well ++
+GitHub introduction should not consume class time

@@ -1,0 +1,7 @@
+Jargon file
+RFC 3092 - Konrad
+deadly traps
+	-- concurrent code
+delegate management/lifecycle
+	-- what if a delegate goes away but is not removed from the list?
+MouseClick vs. Click

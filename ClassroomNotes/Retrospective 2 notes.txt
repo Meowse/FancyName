@@ -1,0 +1,10 @@
+Liked having context for ideas before starting coding.
+Please provide info on using GitHub.
+Information was presented in a real-world scenario, with problems you have to solve.
+Fantastic, thank you. 
+	-- ed. No, thank you!
+Hypothesis/test process is a very good way of 
+	You're actually learning the logic, and the internals of what's going on.
+	You may not agree with it, but you can anticipate it, once you've done the experiments.
+	Awesome experiments, that illuminated how to go forward without crashing.
+Great reminder that "nothing in science is a failure" -- Konrad's thesis.
