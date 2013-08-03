@@ -1,0 +1,1 @@
+GitHub will not check in an empty folder.

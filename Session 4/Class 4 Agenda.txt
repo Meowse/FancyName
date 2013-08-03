@@ -1,0 +1,16 @@
+1) Retrospective
+2) Class 3 review
+3) Remaining topics from Class 3
+	a) Retrieving results from delegates
+	b) Retrieving results from multi-cast delegates
+4) -- BREAK -- (20 mins)
+5) Class 4 overview
+	a) Concurrency
+	b) Shared state
+	c) Synchronization
+6) Asynchronous programming with delegates
+	a) BeginInvoke
+	b) Callback functions
+7) -- BREAK -- (15 mins)
+8) Stuff NOC
+
