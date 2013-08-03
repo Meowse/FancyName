@@ -8,10 +8,85 @@ namespace ReviewApp
 {
     class Program
     {
+        private static readonly Decimal NO_PRICE_INFORMATION = -1;
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, class!");
-            Console.ReadKey();
+            String stockToTrack;
+
+            SetupStockTrackingService(out stockToTrack);
+            SetupUserConcerns();
+
+            Decimal oldPrice = NO_PRICE_INFORMATION;
+            Decimal currentPrice = NO_PRICE_INFORMATION;
+
+            // Pretend to be a stock service (a feed that sends events).
+            // Don't put any business logic in here -- this "stock service" should just
+            // send out an event when the stock price changes.
+            while (true) {
+                Console.WriteLine("Enter the current price of the stock as it changes (\"q\" to quit):");
+                String currentPriceString = Console.ReadLine();
+                if (currentPriceString.Equals("q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return;
+                }
+                oldPrice = currentPrice;
+                currentPrice = Decimal.Parse(currentPriceString);
+                if (oldPrice != currentPrice)
+                {
+                    //PriceChanged(oldPrice, currentPrice);
+                    Console.WriteLine("We should announce that stock {0} has changed from {1} to {2}.", stockToTrack, oldPrice, currentPrice);
+                }
+            }
+        }
+
+        private static void SetupStockTrackingService(out String stockToTrack)
+        {
+            Console.WriteLine("Enter a stock to track:");
+            stockToTrack = Console.ReadLine();
+        }
+
+        private static void SetupUserConcerns() {
+            Console.WriteLine("Enter a buy price (stock will be purchased if the price drops below this amount):");
+            Decimal buyPrice = Decimal.Parse(Console.ReadLine());
+            Console.WriteLine("Enter a sell price (stock will be sold if the price rises above this amount):");
+            Decimal sellPrice = Decimal.Parse(Console.ReadLine());
+
+            Console.WriteLine("Do you want a record of your stock purchases?");
+            if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // Do something here to record stock purchases
+            }
+
+            Console.WriteLine("Do you want a record of your stock sales?");
+            if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // Do something here to record stock sales
+            }
+
+            Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
+            if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                // Do something here to file SEC reports of stock purchases and sales
+            }
+
+        }
+
+        // Action methods -- you can call these, but don't change them.
+        // Pretend that they are a fixed API.
+        private static void RecordStockPurchase(String stock, Decimal purchasePrice, int sharesPurchased)
+        {
+            Console.WriteLine("You purchased {0} shares of {1} at ${2} per share.", sharesPurchased, stock, purchasePrice);
+        }
+
+        private static void RecordStockSale(String stock, Decimal salePrice, int sharesSold)
+        {
+            Console.WriteLine("You sold {0} shares of {1} at ${2} per share.", sharesSold, stock, salePrice);
+        }
+
+        private static void FileSECReport(String transaction, int numberOfShares, String stock, Decimal price)
+        {
+            Console.WriteLine("The SEC has been informed that you {0} {1} shares of {2} at ${3}.", transaction, numberOfShares, stock, price);
         }
     }
 }
