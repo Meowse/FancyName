@@ -24,5 +24,10 @@ namespace ResultsFromDelegates
             }
             return false;
         }
+
+        internal string AnswerIt(string question)
+        {
+            return "My name is " + _name;
+        }
     }
 }
