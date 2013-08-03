@@ -14,6 +14,8 @@ namespace ReviewApp
 
         private static event StockPriceChanged PriceChanged;
 
+        private static StockHolder user = new StockHolder();
+
         static void Main(string[] args)
         {
             String stockToTrack;
@@ -34,6 +36,18 @@ namespace ReviewApp
                 {
                     return;
                 }
+                if (currentPriceString.Equals("sell", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    if (currentPrice != NO_PRICE_INFORMATION)
+                    {
+                        user.Sell(stockToTrack, currentPrice);
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("No current stock price available: cannot sell.");
+                    }
+                }
                 oldPrice = currentPrice;
                 currentPrice = Decimal.Parse(currentPriceString);
                 if ((oldPrice != currentPrice) && (PriceChanged != null))
@@ -50,8 +64,6 @@ namespace ReviewApp
         }
 
         private static void SetupUserConcerns() {
-            StockHolder user = new StockHolder();
-
             Console.WriteLine("Enter a buy price (stock will be purchased if the price drops below this amount):");
             user.BuyPrice = Decimal.Parse(Console.ReadLine());
             
@@ -82,11 +94,23 @@ namespace ReviewApp
                     StockApi.FileSECReport("sold", sharesSold, stockSymbol, salePrice);
                 };
             }
+
+            Console.WriteLine("Do you want to see how many shares you hold after each transaction?");
+            if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                user.Purchase += ReportHoldings;
+                user.Sale += ReportHoldings;
+            }
         }
 
         private static void ReportPurchaseToSec(String stockSymbol, Decimal purchasePrice, int sharesPurchased) 
         {
             StockApi.FileSECReport("bought", sharesPurchased, stockSymbol, purchasePrice);
+        }
+
+        private static void ReportHoldings(String stockSymbol, Decimal currentPrice, int sharesPurchased)
+        {
+            Console.WriteLine("You currently hold {0} shares of {1}.", user.SharesHeld, stockSymbol);
         }
     }
 }

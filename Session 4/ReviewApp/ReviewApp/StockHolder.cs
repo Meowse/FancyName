@@ -37,5 +37,14 @@ namespace ReviewApp
                 SharesHeld += 100;
             }
         }
+
+        public void Sell(string stockSymbol, decimal salePrice)
+        {
+            if (SharesHeld != 0)
+            {
+                Sale(stockSymbol, salePrice, SharesHeld);
+                SharesHeld = 0;
+            }
+        }
     }
 }
