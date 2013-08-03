@@ -87,8 +87,6 @@ namespace ReviewApp
 
         }
 
-        // if stock price changed, check buy or sell conditions
-        Void PriceChangedEH()
 
         // if below the buy price then call record stock purchase
         Void RecordStockBoughtEH()
