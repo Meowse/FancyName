@@ -9,9 +9,22 @@ namespace ReviewApp
     class Program
     {
         private static readonly Decimal NO_PRICE_INFORMATION = -1;
+                        
+        public delegate void StockHasBeenPurchase(String stock, Decimal purchasePrice, int sharesPurchased);
+        public delegate void StockHasBeenSale(String stock, Decimal salePrice, int sharesSold);
+        public delegate void SECHasBeenReported(String transaction, int numberOfShares, String stock, Decimal price)
+
+        public static event StockHasBeenPurchase purchased;  
+        public static event StockHasBeenSale sold;
+        public static event SECHasBeenReported SEC;
+
+
+
 
         static void Main(string[] args)
         {
+            
+
             String stockToTrack;
 
             SetupStockTrackingService(out stockToTrack);
@@ -36,6 +49,8 @@ namespace ReviewApp
                 {
                     //PriceChanged(oldPrice, currentPrice);
                     Console.WriteLine("We should announce that stock {0} has changed from {1} to {2}.", stockToTrack, oldPrice, currentPrice);
+                    
+                    
                 }
             }
         }
@@ -46,7 +61,7 @@ namespace ReviewApp
             stockToTrack = Console.ReadLine();
         }
 
-        private static void SetupUserConcerns() {
+        public static void SetupUserConcerns() {
             Console.WriteLine("Enter a buy price (stock will be purchased if the price drops below this amount):");
             Decimal buyPrice = Decimal.Parse(Console.ReadLine());
             Console.WriteLine("Enter a sell price (stock will be sold if the price rises above this amount):");
@@ -55,27 +70,29 @@ namespace ReviewApp
             Console.WriteLine("Do you want a record of your stock purchases?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Do something here to record stock purchases
+                purchased += RecordStockPurchase;
+                
             }
 
             Console.WriteLine("Do you want a record of your stock sales?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Do something here to record stock sales
+                sold += RecordStockSale;
             }
 
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Do something here to file SEC reports of stock purchases and sales
+                SEC += FileSECReport;
             }
 
         }
 
         // Action methods -- you can call these, but don't change them.
         // Pretend that they are a fixed API.
-        private static void RecordStockPurchase(String stock, Decimal purchasePrice, int sharesPurchased)
+        public static void RecordStockPurchase(String stock, Decimal purchasePrice, int sharesPurchased)
         {
+            
             Console.WriteLine("You purchased {0} shares of {1} at ${2} per share.", sharesPurchased, stock, purchasePrice);
         }
 
