@@ -1,1 +1,35 @@
 "sandwich model" -- say something complimentary, then offer constructive feedback, then say something complimentary
+
+
+
+
+
+
+To declare a new TYPE of event, use the "delegate" keyword:
+
+	public delegate void EventTypeNameGoesHere(int parm1, String parm2, Decimal parm3, int parm4);
+
+
+To declare a new EVENT, of a particular type, use the "event" keyword and the type you declared above:
+
+	public event EventTypeNameGoesHere MyEvent;
+
+
+To ADD a LISTENER to an event, use the "+=" operator and OMIT the parens:
+
+	MyEvent += SomeMethodThatHandlesEventTypeGoesHereEvents;
+
+
+	// elsewhere in your code, write the event handler method.
+	// Note that the parameters here must PERFECTLY MATCH the parameters for the event type EventTypeNameGoesHere.
+	private void SomeMethodThatHandlesEventTypeGoesHereEvents(int parm1, String parm2, Decimal parm3, int parm4)
+	{
+		// some code you want to run when the event happens
+	}
+
+
+To FIRE an event (and call ALL of the listeners that have been added to it):
+
+	MyEvent(13, "Fred", 19.99, 7);
+
+
