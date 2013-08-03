@@ -1,1 +1,6 @@
 C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\bin\Debug\ReviewApp.exe.config
+C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\bin\Debug\ReviewApp.exe
+C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\bin\Debug\ReviewApp.pdb
+C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\obj\Debug\ReviewApp.csprojResolveAssemblyReference.cache
+C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\obj\Debug\ReviewApp.exe
+C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\obj\Debug\ReviewApp.pdb

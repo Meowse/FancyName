@@ -10,6 +10,8 @@ namespace ReviewApp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello, class!");
+            Console.ReadKey();
         }
     }
 }
