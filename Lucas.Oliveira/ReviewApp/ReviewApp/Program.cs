@@ -9,14 +9,17 @@ namespace ReviewApp
     class Program
     {
         private static readonly Decimal NO_PRICE_INFORMATION = -1;
-                        
+        
+                
         public delegate void StockHasBeenPurchase(String stock, Decimal purchasePrice, int sharesPurchased);
         public delegate void StockHasBeenSale(String stock, Decimal salePrice, int sharesSold);
-        public delegate void SECHasBeenReported(String transaction, int numberOfShares, String stock, Decimal price)
-
+        public delegate void SECHasBeenReported(String transaction, int numberOfShares, String stock, Decimal price);
+        public delegate void PriceChange(String stock, Decimal salePrice, int shares);
+        
         public static event StockHasBeenPurchase purchased;  
         public static event StockHasBeenSale sold;
         public static event SECHasBeenReported SEC;
+        public static event PriceChange SaleHappenig;
 
 
 
@@ -51,6 +54,7 @@ namespace ReviewApp
                     Console.WriteLine("We should announce that stock {0} has changed from {1} to {2}.", stockToTrack, oldPrice, currentPrice);
                     purchased(stockToTrack, currentPrice, 100);
                     
+                    
                 }
             }
         }
@@ -60,7 +64,7 @@ namespace ReviewApp
             Console.WriteLine("Enter a stock to track:");
             stockToTrack = Console.ReadLine();
         }
-
+      
         public static void SetupUserConcerns() {
             Console.WriteLine("Enter a buy price (stock will be purchased if the price drops below this amount):");
             Decimal buyPrice = Decimal.Parse(Console.ReadLine());
@@ -70,16 +74,17 @@ namespace ReviewApp
             Console.WriteLine("Do you want a record of your stock purchases?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                purchased += RecordStockPurchase;
-                
-            }
+                purchased += anything(string stoke, decimal money, int someNumber) => {
+                    
 
+
+                };
+            }
             Console.WriteLine("Do you want a record of your stock sales?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
                 sold += RecordStockSale;
             }
-
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {

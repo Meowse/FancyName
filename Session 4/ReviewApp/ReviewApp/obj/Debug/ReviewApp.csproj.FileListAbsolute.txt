@@ -4,3 +4,4 @@ C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\b
 C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\obj\Debug\ReviewApp.csprojResolveAssemblyReference.cache
 C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\obj\Debug\ReviewApp.exe
 C:\Users\NCInstructor\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\obj\Debug\ReviewApp.pdb
+C:\Users\NCStudent\Documents\GitHub\FancyName\Session 4\ReviewApp\ReviewApp\bin\Debug\ReviewApp.exe.config
