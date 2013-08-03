@@ -6,7 +6,11 @@
 	b) Retrieving results from delegates
 	c) Retrieving results from multi-cast delegates
 	
-4) -- BREAK -- (20 mins)
+
+	
+	
+The following topics will be covered in a recorded video which Mickey will make available to the class to watch during the coming week.
+
 5) Class 4 overview
 	a) Concurrency
 	b) Shared state
@@ -14,6 +18,3 @@
 6) Asynchronous programming with delegates
 	a) BeginInvoke
 	b) Callback functions
-7) -- BREAK -- (15 mins)
-8) Stuff NOC
-

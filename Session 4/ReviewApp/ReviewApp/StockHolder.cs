@@ -22,19 +22,20 @@ namespace ReviewApp
         {
             if (newPrice > SellPrice)
             {
+                int sharesSold = SharesHeld;
+                SharesHeld = 0;
                 if (Sale != null)
                 {
-                    Sale(stockSymbol, newPrice, SharesHeld);
+                    Sale(stockSymbol, newPrice, sharesSold);
                 }
-                SharesHeld = 0;
             }
             if (newPrice < BuyPrice)
             {
+                SharesHeld += 100;
                 if (Purchase != null)
                 {
                     Purchase(stockSymbol, newPrice, 100);
                 }
-                SharesHeld += 100;
             }
         }
 
