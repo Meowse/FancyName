@@ -49,7 +49,7 @@ namespace ReviewApp
                 {
                     //PriceChanged(oldPrice, currentPrice);
                     Console.WriteLine("We should announce that stock {0} has changed from {1} to {2}.", stockToTrack, oldPrice, currentPrice);
-                    
+                    purchased(stockToTrack, currentPrice, 100);
                     
                 }
             }
