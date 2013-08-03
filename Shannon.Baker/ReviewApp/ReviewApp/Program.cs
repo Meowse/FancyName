@@ -10,6 +10,7 @@ namespace ReviewApp
     {
         private static readonly Decimal NO_PRICE_INFORMATION = -1;
 
+
         static void Main(string[] args)
         {
             String stockToTrack;

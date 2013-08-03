@@ -7,3 +7,6 @@ S:\C# 3 Classroom Exercises\BasicDelegates\BasicDelegates\obj\Debug\BasicDelegat
 S:\C# 3 Classroom Exercises\BasicDelegates\BasicDelegates\obj\Debug\BasicDelegates.exe
 S:\C# 3 Classroom Exercises\BasicDelegates\BasicDelegates\obj\Debug\BasicDelegates.pdb
 S:\C# 3 Classroom Exercises\BasicDelegates\BasicDelegates\obj\Debug\BasicDelegates.MickeyForm.resources
+C:\Users\NCStudent\Documents\GitHub\FancyName\ClassroomWork\BasicDelegates\BasicDelegates\bin\Debug\BasicDelegates.exe.config
+C:\Users\NCStudent\Documents\GitHub\FancyName\ClassroomWork\BasicDelegates\BasicDelegates\obj\Debug\BasicDelegates.exe
+C:\Users\NCStudent\Documents\GitHub\FancyName\ClassroomWork\BasicDelegates\BasicDelegates\obj\Debug\BasicDelegates.pdb
