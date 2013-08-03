@@ -87,8 +87,12 @@ namespace ReviewApp
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
+                // The parameters of ReportPurchaseToSec must exactly match the parameters
+                // of the delegate type that was used to declare user.Purchase (a StockPurchased event)
                 user.Purchase += ReportPurchaseToSec;
 
+                // These parameters must exactly match the parameters of the delegate type
+                // that was used to declare user.Sale (a StockSold event)
                 user.Sale += (String stockSymbol, Decimal salePrice, int sharesSold) =>
                 {
                     StockApi.FileSECReport("sold", sharesSold, stockSymbol, salePrice);
