@@ -10,6 +10,10 @@ namespace ReviewApp
     {
         private static readonly Decimal NO_PRICE_INFORMATION = -1;
 
+        private delegate void StockPriceChanged(String stockSymbol, Decimal oldPrice, Decimal newPrice);
+
+        private static event StockPriceChanged PriceChanged;
+
         static void Main(string[] args)
         {
             String stockToTrack;
@@ -34,8 +38,7 @@ namespace ReviewApp
                 currentPrice = Decimal.Parse(currentPriceString);
                 if (oldPrice != currentPrice)
                 {
-                    //PriceChanged(oldPrice, currentPrice);
-                    Console.WriteLine("We should announce that stock {0} has changed from {1} to {2}.", stockToTrack, oldPrice, currentPrice);
+                    PriceChanged(stockToTrack, oldPrice, currentPrice);
                 }
             }
         }
@@ -47,46 +50,53 @@ namespace ReviewApp
         }
 
         private static void SetupUserConcerns() {
+            StockHolder user = new StockHolder();
+
             Console.WriteLine("Enter a buy price (stock will be purchased if the price drops below this amount):");
-            Decimal buyPrice = Decimal.Parse(Console.ReadLine());
+            user.BuyPrice = Decimal.Parse(Console.ReadLine());
+            
             Console.WriteLine("Enter a sell price (stock will be sold if the price rises above this amount):");
-            Decimal sellPrice = Decimal.Parse(Console.ReadLine());
+            user.SellPrice = Decimal.Parse(Console.ReadLine());
 
             Console.WriteLine("Do you want a record of your stock purchases?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Do something here to record stock purchases
+                PriceChanged += (String stockSymbol, Decimal oldPrice, Decimal newPrice) =>
+                {
+                    if (newPrice < user.BuyPrice)
+                    {
+                        user.SharesHeld += 100;
+                        StockApi.RecordStockPurchase(stockSymbol, newPrice, 100);
+                    }
+                };
             }
 
             Console.WriteLine("Do you want a record of your stock sales?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Do something here to record stock sales
+                PriceChanged += user.SellStock;
             }
 
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                // Do something here to file SEC reports of stock purchases and sales
+                PriceChanged += (String stockSymbol, Decimal oldPrice, Decimal newPrice) =>
+                {
+                    if (newPrice < user.BuyPrice)
+                    {
+                        StockApi.FileSECReport("bought", 100, stockSymbol, newPrice);
+                    }
+                    if (newPrice > user.SellPrice)
+                    {
+                        StockApi.FileSECReport("sold", user.SharesHeld, stockSymbol, newPrice);
+                    }
+                };
             }
 
         }
 
-        // Action methods -- you can call these, but don't change them.
-        // Pretend that they are a fixed API.
-        private static void RecordStockPurchase(String stock, Decimal purchasePrice, int sharesPurchased)
-        {
-            Console.WriteLine("You purchased {0} shares of {1} at ${2} per share.", sharesPurchased, stock, purchasePrice);
-        }
 
-        private static void RecordStockSale(String stock, Decimal salePrice, int sharesSold)
-        {
-            Console.WriteLine("You sold {0} shares of {1} at ${2} per share.", sharesSold, stock, salePrice);
-        }
 
-        private static void FileSECReport(String transaction, int numberOfShares, String stock, Decimal price)
-        {
-            Console.WriteLine("The SEC has been informed that you {0} {1} shares of {2} at ${3}.", transaction, numberOfShares, stock, price);
-        }
+
     }
 }
