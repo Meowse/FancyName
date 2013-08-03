@@ -14,9 +14,9 @@ namespace ReviewApp
         public event StockPurchased Purchase;
         public event StockSold Sale;
 
-        public decimal BuyPrice { get; set; }
-        public decimal SellPrice { get; set; }
-        public int SharesHeld { get; set; }
+        public decimal BuyPrice { private get; set; }
+        public decimal SellPrice { private get; set; }
+        public int SharesHeld { get; private set; }
 
         public void HandlePriceChanged(String stockSymbol, Decimal oldPrice, Decimal newPrice)
         {
