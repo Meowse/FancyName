@@ -12,6 +12,10 @@ namespace ReviewApp
 
         static void Main(string[] args)
         {
+            // A delegate type for hooking up change notifications.
+            public delegate void StockPriceChangedEventHandler(object sender, EventArgs e);
+            
+            
             String stockToTrack;
 
             SetupStockTrackingService(out stockToTrack);
@@ -52,41 +56,49 @@ namespace ReviewApp
             Console.WriteLine("Enter a sell price (stock will be sold if the price rises above this amount):");
             Decimal sellPrice = Decimal.Parse(Console.ReadLine());
 
+            StockPriceChanged += PriceChangedEH;
+
             Console.WriteLine("Do you want a record of your stock purchases?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
                 // Do something here to record stock purchases
+                // setup event listener for stock price changed - if below the buy price then call record stock purchase
+                BoughtStock += RecordStockBoughtEH;
+
             }
 
             Console.WriteLine("Do you want a record of your stock sales?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
                 // Do something here to record stock sales
+                // setup event listener for stock price changed -- if above the sell price call record stock sale 
+                SoldStock += RecordStockSoldEH;
+                
             }
 
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
                 // Do something here to file SEC reports of stock purchases and sales
+                // setup event listener for stock price changed -- 
+                BoughtStock += ReportToSecEH;
+                SoldStock += ReportToSecEH;
             }
 
         }
 
-        // Action methods -- you can call these, but don't change them.
-        // Pretend that they are a fixed API.
-        private static void RecordStockPurchase(String stock, Decimal purchasePrice, int sharesPurchased)
-        {
-            Console.WriteLine("You purchased {0} shares of {1} at ${2} per share.", sharesPurchased, stock, purchasePrice);
-        }
+        // if stock price changed, check buy or sell conditions
+        Void PriceChangedEH()
 
-        private static void RecordStockSale(String stock, Decimal salePrice, int sharesSold)
-        {
-            Console.WriteLine("You sold {0} shares of {1} at ${2} per share.", sharesSold, stock, salePrice);
-        }
+        // if below the buy price then call record stock purchase
+        Void RecordStockBoughtEH()
 
-        private static void FileSECReport(String transaction, int numberOfShares, String stock, Decimal price)
-        {
-            Console.WriteLine("The SEC has been informed that you {0} {1} shares of {2} at ${3}.", transaction, numberOfShares, stock, price);
-        }
+        // if above the sell price call record stock sale 
+        Void RecordStockSoldEH()
+
+        // if below the buy price 
+        Void ReportToSecEH()
+
+        
     }
 }
