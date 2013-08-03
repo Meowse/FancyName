@@ -22,12 +22,18 @@ namespace ReviewApp
         {
             if (newPrice > SellPrice)
             {
-                Sale(stockSymbol, newPrice, SharesHeld);
+                if (Sale != null)
+                {
+                    Sale(stockSymbol, newPrice, SharesHeld);
+                }
                 SharesHeld = 0;
             }
             if (newPrice < BuyPrice)
             {
-                Purchase(stockSymbol, newPrice, 100);
+                if (Purchase != null)
+                {
+                    Purchase(stockSymbol, newPrice, 100);
+                }
                 SharesHeld += 100;
             }
         }

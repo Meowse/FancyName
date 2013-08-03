@@ -36,7 +36,7 @@ namespace ReviewApp
                 }
                 oldPrice = currentPrice;
                 currentPrice = Decimal.Parse(currentPriceString);
-                if (oldPrice != currentPrice)
+                if ((oldPrice != currentPrice) && (PriceChanged != null))
                 {
                     PriceChanged(stockToTrack, oldPrice, currentPrice);
                 }
@@ -75,16 +75,18 @@ namespace ReviewApp
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                user.Purchase += (String stockSymbol, Decimal purchasePrice, int sharesPurchased) =>
-                {
-                    StockApi.FileSECReport("bought", sharesPurchased, stockSymbol, purchasePrice);
-                };
+                user.Purchase += ReportPurchaseToSec;
 
                 user.Sale += (String stockSymbol, Decimal salePrice, int sharesSold) =>
                 {
                     StockApi.FileSECReport("sold", sharesSold, stockSymbol, salePrice);
                 };
             }
+        }
+
+        private static void ReportPurchaseToSec(String stockSymbol, Decimal purchasePrice, int sharesPurchased) 
+        {
+            StockApi.FileSECReport("bought", sharesPurchased, stockSymbol, purchasePrice);
         }
     }
 }
