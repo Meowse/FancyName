@@ -30,6 +30,6 @@ To ADD a LISTENER to an event, use the "+=" operator and OMIT the parens:
 
 To FIRE an event (and call ALL of the listeners that have been added to it):
 
-	MyEvent(13, "Fred", 19.99, 7);
+	MyEvent(13, "Fred", 19.99, 7);   // This will call (at least) SomeMethodThatHandlesEventTypeGoesHereEvents(13, "Fred", 19.99, 7)
 
 
