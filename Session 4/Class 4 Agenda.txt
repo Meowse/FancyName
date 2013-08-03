@@ -1,5 +1,6 @@
 1) Retrospective
 2) Class 3 review
+	a) Stock-tracking console app
 3) Remaining topics from Class 3
 	a) Anonymous methods (lambda expressions) and delegates
 	b) Retrieving results from delegates
