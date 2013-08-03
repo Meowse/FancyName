@@ -1,8 +1,10 @@
 1) Retrospective
 2) Class 3 review
 3) Remaining topics from Class 3
-	a) Retrieving results from delegates
-	b) Retrieving results from multi-cast delegates
+	a) Anonymous methods (lambda expressions) and delegates
+	b) Retrieving results from delegates
+	c) Retrieving results from multi-cast delegates
+	
 4) -- BREAK -- (20 mins)
 5) Class 4 overview
 	a) Concurrency
