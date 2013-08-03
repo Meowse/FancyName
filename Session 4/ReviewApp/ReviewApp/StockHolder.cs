@@ -8,16 +8,27 @@ namespace ReviewApp
 {
     class StockHolder
     {
+        public delegate void StockPurchased(String stockSymbol, Decimal purchasePrice, int sharesPurchased);
+        public delegate void StockSold(String stockSymbol, Decimal salePrice, int sharesSold);
+
+        public event StockPurchased Purchase;
+        public event StockSold Sale;
+
         public decimal BuyPrice { get; set; }
         public decimal SellPrice { get; set; }
         public int SharesHeld { get; set; }
 
-        public void SellStock(String stockSymbol, Decimal oldPrice, Decimal newPrice)
+        public void HandlePriceChanged(String stockSymbol, Decimal oldPrice, Decimal newPrice)
         {
             if (newPrice > SellPrice)
             {
-                StockApi.RecordStockSale(stockSymbol, newPrice, SharesHeld);
+                Sale(stockSymbol, newPrice, SharesHeld);
                 SharesHeld = 0;
+            }
+            if (newPrice < BuyPrice)
+            {
+                Purchase(stockSymbol, newPrice, 100);
+                SharesHeld += 100;
             }
         }
     }

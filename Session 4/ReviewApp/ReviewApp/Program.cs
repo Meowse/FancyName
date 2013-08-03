@@ -58,45 +58,33 @@ namespace ReviewApp
             Console.WriteLine("Enter a sell price (stock will be sold if the price rises above this amount):");
             user.SellPrice = Decimal.Parse(Console.ReadLine());
 
+            PriceChanged += user.HandlePriceChanged;
+
             Console.WriteLine("Do you want a record of your stock purchases?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                PriceChanged += (String stockSymbol, Decimal oldPrice, Decimal newPrice) =>
-                {
-                    if (newPrice < user.BuyPrice)
-                    {
-                        user.SharesHeld += 100;
-                        StockApi.RecordStockPurchase(stockSymbol, newPrice, 100);
-                    }
-                };
+                user.Purchase += StockApi.RecordStockPurchase;
             }
 
             Console.WriteLine("Do you want a record of your stock sales?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                PriceChanged += user.SellStock;
+                user.Sale += StockApi.RecordStockSale;
             }
 
             Console.WriteLine("Do you want to file an SEC report of your stock transactions?");
             if (Console.ReadLine().Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                PriceChanged += (String stockSymbol, Decimal oldPrice, Decimal newPrice) =>
+                user.Purchase += (String stockSymbol, Decimal purchasePrice, int sharesPurchased) =>
                 {
-                    if (newPrice < user.BuyPrice)
-                    {
-                        StockApi.FileSECReport("bought", 100, stockSymbol, newPrice);
-                    }
-                    if (newPrice > user.SellPrice)
-                    {
-                        StockApi.FileSECReport("sold", user.SharesHeld, stockSymbol, newPrice);
-                    }
+                    StockApi.FileSECReport("bought", sharesPurchased, stockSymbol, purchasePrice);
+                };
+
+                user.Sale += (String stockSymbol, Decimal salePrice, int sharesSold) =>
+                {
+                    StockApi.FileSECReport("sold", sharesSold, stockSymbol, salePrice);
                 };
             }
-
         }
-
-
-
-
     }
 }
