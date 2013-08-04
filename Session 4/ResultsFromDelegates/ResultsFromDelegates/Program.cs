@@ -19,19 +19,26 @@ namespace ResultsFromDelegates
             pub.Announce += sub1.Listen;
             pub.Announce += sub2.Listen;
 
-            pub.SpreadTheWord("Good news!");
-            pub.SpreadTheWord("Subscriber 1: Bad news!");
-            pub.SpreadTheWord("Subscriber 2: Bad news!");
+//            pub.SpreadTheWord("Good news!");
+//            pub.SpreadTheWord("Subscriber 1: Bad news!");
+//            pub.SpreadTheWord("Subscriber 2: Bad news!");
 
             pub.Ask += sub1.AnswerIt;
             pub.Ask += sub2.AnswerIt;
-            pub.AskTheQuestion("What is your name?");
+            
+//            pub.AskTheQuestion("What is your name?");
 
             Subscriber sub3 = new Subscriber("Johnny-come-lately");
             pub.Ask += sub3.AnswerIt;
 
-            pub.AskTheQuestion("What is your name, really?");
+//            pub.AskTheQuestion("What is your name, really?");
 
+            pub.SlowThings += sub1.SlowThing;
+            pub.SlowThings += sub2.SlowThing;
+            pub.SlowThings += sub3.SlowThing;
+
+            pub.DoSlowThings(5);
+          
             Console.ReadKey();
         }
     }

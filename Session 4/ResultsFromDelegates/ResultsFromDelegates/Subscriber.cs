@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace ResultsFromDelegates
 {
@@ -28,6 +29,14 @@ namespace ResultsFromDelegates
         internal string AnswerIt(string question)
         {
             return "My name is " + _name;
+        }
+
+        internal string SlowThing(int input)
+        {
+            Console.WriteLine("I am {0} and I am starting a slow thing.", _name);
+            Thread.Sleep(input * 1000);
+            Console.WriteLine("I am {0} and I am ending a slow thing.", _name);
+            return string.Format("I spent {0} seconds doing a slow thing.", input);
         }
     }
 }
